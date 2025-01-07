@@ -10,8 +10,21 @@ local UILib = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local hubName = "LUMORIA Hub"
 local hubCompany = "LUMORIA"
 local hubVersion = "25.01.01"
-local releaseType = "Main"
+local releaseType = "Beta" -- CHECK BUILD TYPE!!!
 local hubTheme = "AmberGlow"
+local hwid = gethwid() -- Initialize HWID here
+
+-- Define getUserType function before using it
+local function getUserType() -- Get user type
+    if devMode then
+        return "Developer"
+    elseif proMode then
+        return "Pro"
+    else
+        return "Free"
+    end
+end
+
 local envInfo = ("Userlevel: "..getUserType()..", Release: "..releaseType..", Version: "..hubVersion..", HWID: "..hwid)
 
 -- Function to check if game is compatible or to use universal mode
@@ -29,7 +42,7 @@ gameCompatible = false -- Game compatibility flag
 devMode = false
 proMode = false
 animSpeedMult = 0.33
-hwid
+
 -- Notify loading
 UILib:Notify({
     Title = (hubName.." "..hubVersion),
@@ -39,7 +52,6 @@ UILib:Notify({
 })
 
 -- Checks
-hwid = gethwid()
 print(hwid) -- Print HWID for development purposes
 setclipboard(hwid)
 print("-- Copied HWID to clipboard --")
@@ -115,7 +127,8 @@ local function dcLog(log)
 
     local success, response = pcall(function()
         return HttpService:PostAsync(webhookUrl, payload, Enum.HttpContentType.ApplicationJson, false, headers)
-    )
+    end)
+end
 
 local function createESP(player)
     local Box = Instance.new("BillboardGui")
@@ -175,16 +188,6 @@ local function enableESP(enable)
     end
 end
 
-local function getUserType() -- Get user type
-    if devMode then
-        return "Developer"
-    elseif proMode then
-        return "Pro"
-    else
-        return "Free"
-    end
-end
-
 local localPlayerTab = Window:CreateTab("Local", "user-round-cog") -- Localplayer Tab
 local espToggle = localPlayerTab:CreateToggle({
     Name = "ESP",
@@ -217,8 +220,8 @@ if devMode == true then
     local Section = devModeTab:CreateSection("Information")
     local Divider = devModeTab:CreateDivider()
     local userInfo = devModeTab:CreateLabel(getUserType(),"circle-user-round") -- Shows userType
-    local releaseInfo = devModeTab:CreateLabel(releaseType,"git-branch") -- Shows releaseType
-    local releaseInfo = devModeTab:CreateLabel(hubVersion,"git-commit-horizontal") -- Shows version
+    local releaseInfoLabel1 = devModeTab:CreateLabel(releaseType,"git-branch") -- Shows releaseType
+    local releaseInfoLabel2 = devModeTab:CreateLabel(hubVersion,"git-commit-horizontal") -- Shows version
     local hwidInfo = devModeTab:CreateParagraph({
         Title = "HWID", Content = hwid
     })
