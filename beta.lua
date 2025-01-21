@@ -1,10 +1,15 @@
+-- Wait for game loading
+if not game:IsLoaded() then
+    game.Loaded:Wait()
+end
+
 -- Load UX/UI Library and other dependencies
 local UILib = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 -- Environment
 local hubName = "LUMORIA Hub"
 local hubCompany = "LUMORIA"
-local hubVersion = "25.01.03 rev.0"
+local hubVersion = "25.01.03 rev.1"
 local releaseType = "Beta"
 local hubTheme = "AmberGlow"
 local hwid = gethwid() -- Initialize HWID here
@@ -27,7 +32,7 @@ local gameId = game.PlaceId -- Get gameId for checking
 local games = {
     {893973440, "Flee the Facility"}, -- 1
     {16732694052, "Fisch"}, -- 2
-    {192800, "Work at a Pizza Place"} -- 3
+    {192800, "Work at a Pizza Place"}, -- 3
     {10975855395, "Korrupt Zombies"} -- 4
 }
 
@@ -104,7 +109,7 @@ end
 -- Game Library
 
 -- Flee the Facility [1]
-local function spoofVIPFlee() -- Spoof VIP function
+local function spoofVIPFlee() -- Spoof VIP function -- untested
     local vipDBPath = game:GetService("ReplicatedStorage").GamePassIds
     local vipDB = require(vipDBPath)
     vipDB.VIP = vipGamepassID
